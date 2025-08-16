@@ -1,11 +1,4 @@
-# DSP Flex – Kanban Frontend (Next.js)
-
-Trello-style board for Task Assignments.
-
-## Dev
-```bash
-npm i
-npm run dev
-```
-
-Set `NEXT_PUBLIC_API_URL` to point to the API (defaults to `http://localhost:4000`).
+# DSP Flex – Kanban Frontend (Next.js 14)
+- Trello-style board with dnd-kit
+- Tailwind pre-configured
+- Uses `NEXT_PUBLIC_API_URL` to call the API (defaults to http://localhost:4000 in dev)
