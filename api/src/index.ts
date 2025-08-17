@@ -1,3 +1,4 @@
+
 import express from 'express';
 import cors from 'cors';
 import { WebSocketServer } from 'ws';
@@ -8,6 +9,10 @@ app.use(cors());
 app.use(express.json());
 
 const PORT = process.env.PORT || 4000;
+
+// --- Health & root routes ---
+app.get('/', (_req, res) => res.json({ ok: true, service: 'dsp-flex-api', docs: ['/boards/default','/health'] }));
+app.get('/health', (_req, res) => res.json({ ok: true }));
 
 type Status = 'Not Started' | 'In Progress' | 'On Hold' | 'Completed';
 type Task = {
