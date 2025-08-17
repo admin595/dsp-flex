@@ -26,17 +26,19 @@ model Column {
 }
 
 model Task {
-  id        String   @id @default(cuid())
-  title     String
+  id         String    @id @default(cuid())
+  title      String
   description String?
-  priority  String   @default("Medium")
-  status    String   @default("Not Started")
-  dueAt     DateTime?
-  order     Int      @default(0)
-  assignees String[]
-  labels    String[]
-  boardId   String
-  board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  priority   String    @default("Medium")
+  status     String    @default("Not Started")
+  dueAt      DateTime?
+  order      Int       @default(0)
+  assignees  String[]
+  labels     String[]
+  boardId    String
+  board      Board     @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  columnId   String?
+  column     Column?   @relation(fields: [columnId], references: [id], onDelete: SetNull)
+  createdAt  DateTime  @default(now())
+  updatedAt  DateTime  @updatedAt
 }
