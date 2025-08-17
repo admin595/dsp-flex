@@ -16,29 +16,29 @@ model Board {
 }
 
 model Column {
-  id      String  @id
+  id      String   @id @default(uuid())
   key     String
   name    String
   order   Int
+  board   Board    @relation(fields: [boardId], references: [id])
   boardId String
-  board   Board   @relation(fields: [boardId], references: [id], onDelete: Cascade)
   tasks   Task[]
 }
 
 model Task {
-  id         String    @id @default(cuid())
-  title      String
+  id          String   @id @default(uuid())
+  title       String
   description String?
-  priority   String    @default("Medium")
-  status     String    @default("Not Started")
-  dueAt      DateTime?
-  order      Int       @default(0)
-  assignees  String[]
-  labels     String[]
-  boardId    String
-  board      Board     @relation(fields: [boardId], references: [id], onDelete: Cascade)
-  columnId   String?
-  column     Column?   @relation(fields: [columnId], references: [id], onDelete: SetNull)
-  createdAt  DateTime  @default(now())
-  updatedAt  DateTime  @updatedAt
+  priority    String?
+  status      String
+  dueAt       DateTime?
+  order       Int      @default(0)
+  assignees   String[]
+  labels      String[]
+  board       Board    @relation(fields: [boardId], references: [id])
+  boardId     String
+  column      Column?  @relation(fields: [columnId], references: [id])
+  columnId    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
 }
