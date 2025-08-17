@@ -1,0 +1,42 @@
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = env("DB_PROVIDER") // "postgresql" on Render, "sqlite" locally
+  url      = env("DATABASE_URL")
+}
+
+model Board {
+  id      String   @id @default("default")
+  name    String
+  columns Column[]
+  tasks   Task[]
+}
+
+model Column {
+  id      String  @id
+  key     String
+  name    String
+  order   Int
+  boardId String
+  board   Board   @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  tasks   Task[]
+}
+
+model Task {
+  id        String   @id @default(cuid())
+  title     String
+  description String?
+  priority  String   @default("Medium")
+  status    String   @default("Not Started")
+  dueAt     DateTime?
+  order     Int      @default(0)
+  assignees String[]
+  labels    String[]
+  boardId   String
+  board     Board    @relation(fields: [boardId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
