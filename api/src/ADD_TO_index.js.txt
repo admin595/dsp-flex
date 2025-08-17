@@ -1,0 +1,10 @@
+/* ADD THIS at the top of your existing file after app.use(...) lines */
+
+// Root route (friendly JSON)
+app.get('/', (req, res) => {
+  res.json({
+    ok: true,
+    service: 'dsp-flex-api',
+    docs: ['/health', '/boards/default', '/tasks (POST)', '/tasks/:id (PATCH|DELETE)', '/tasks/:id/move (PATCH)']
+  });
+});
